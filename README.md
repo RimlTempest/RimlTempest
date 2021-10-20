@@ -26,7 +26,7 @@
 ## Trophy
 
 <a href="https://www.riml.work">
-  <img alt="Website" src="https://github-profile-trophy.vercel.app/?username=RimlTempest&row=2&column=3">
+  <img alt="Website" src="https://github-profile-trophy.vercel.app/?username=RimlTempest&row=2&column=3&no-frame=true">
 </a>
 
 ## Languages
