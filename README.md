@@ -1,4 +1,4 @@
-
+<samp>
 <h1 align="center">
   Hi there, I'm 
   <a href="https://www.riml.work" target="_blank">
@@ -70,7 +70,7 @@
       <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original-wordmark.svg" alt="react" width="40" height="40"/>
     </a>
     <a href="https://nextjs.org/" target="_blank"> 
-      <img src="https://cdn.worldvectorlogo.com/logos/nextjs-3.svg" alt="nextjs" width="40" height="40"/>
+      <img src="https://images.ctfassets.net/fdt52x6qf2de/1MVOW9GweIGspjGTSrYgBk/7c3b3cf133c4db02b5cdd7559c3e3c93/next-js.svg" alt="nextjs" width="40" height="40"/>
     </a> 
     <a href="https://www.gatsbyjs.com/" target="_blank"> 
       <img src="https://www.vectorlogo.zone/logos/gatsbyjs/gatsbyjs-icon.svg" alt="gatsby" width="40" height="40"/> 
@@ -107,3 +107,4 @@
   </code>
    
 </p>
+</samp>
