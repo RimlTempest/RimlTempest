@@ -1,7 +1,7 @@
 <samp>
 <h1 align="center">
   Hi there, I'm 
-  <a href="https://www.riml.work" target="_blank">
+  <a href="https://twitter.com/fande4d" target="_blank">
     Riml
   </a> 
   👋
