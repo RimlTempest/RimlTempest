@@ -1,0 +1,56 @@
+name: Metrics
+
+on:
+  schedule:
+    - cron: "0 15 * * *" # 00:00 JST
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  metrics:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Overview
+        uses: lowlighter/metrics@v3.34
+        with:
+          token: ${{ secrets.METRICS_TOKEN || github.token }}
+          committer_token: ${{ secrets.GITHUB_TOKEN }}
+          filename: github-metrics.svg
+          user: RimlTempest
+          template: classic
+          base: header, activity, community, repositories
+          config_timezone: Asia/Tokyo
+          plugin_isocalendar: yes
+          plugin_isocalendar_duration: full-year
+
+      - name: Languages
+        uses: lowlighter/metrics@v3.34
+        with:
+          token: ${{ secrets.METRICS_TOKEN || github.token }}
+          committer_token: ${{ secrets.GITHUB_TOKEN }}
+          filename: metrics.plugin.languages.svg
+          user: RimlTempest
+          template: classic
+          base: ""
+          config_timezone: Asia/Tokyo
+          plugin_languages: yes
+          plugin_languages_sections: most-used
+          plugin_languages_details: percentage
+          plugin_languages_limit: 8
+
+      - name: Achievements
+        uses: lowlighter/metrics@v3.34
+        with:
+          token: ${{ secrets.METRICS_TOKEN || github.token }}
+          committer_token: ${{ secrets.GITHUB_TOKEN }}
+          filename: metrics.plugin.achievements.svg
+          user: RimlTempest
+          template: classic
+          base: ""
+          config_timezone: Asia/Tokyo
+          plugin_achievements: yes
+          plugin_achievements_display: compact
+          plugin_achievements_threshold: B
+          plugin_achievements_secrets: yes
