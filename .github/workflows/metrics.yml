@@ -40,17 +40,19 @@ jobs:
           plugin_languages_details: percentage
           plugin_languages_limit: 8
 
-      - name: Achievements
+      - name: Habits
         uses: lowlighter/metrics@v3.34
         with:
           token: ${{ secrets.METRICS_TOKEN || github.token }}
           committer_token: ${{ secrets.GITHUB_TOKEN }}
-          filename: metrics.plugin.achievements.svg
+          filename: metrics.plugin.habits.svg
           user: RimlTempest
           template: classic
           base: ""
           config_timezone: Asia/Tokyo
-          plugin_achievements: yes
-          plugin_achievements_display: compact
-          plugin_achievements_threshold: B
-          plugin_achievements_secrets: yes
+          plugin_habits: yes
+          plugin_habits_from: 200
+          plugin_habits_days: 14
+          plugin_habits_facts: yes
+          plugin_habits_charts: yes
+          plugin_habits_charts_type: graph
