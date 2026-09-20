@@ -26,7 +26,7 @@ alt = "道具箱 — Riml がふだん使う技術"
 # 行は好きなだけ増やせます。items が多いときは自動で折り返します。
 [[toolbox.rows]]
 label = "言語"
-items = ["TypeScript", "Rust", "Python", "Swift", "C#"]
+items = ["TypeScript", "Rust", "Swift", "C#"]
 
 [[toolbox.rows]]
 label = "Web"
@@ -34,16 +34,16 @@ items = ["React", "TanStack Start", "Lit", "Astro", "Vue", "Hono"]
 
 [[toolbox.rows]]
 label = "基盤"
-items = ["Cloudflare Workers", "D1", "Bun", "GitHub Actions"]
+items = ["Cloudflare", "Bun", "pnpm", "GitHub Actions", "GitLab Runner"]
 
 [[toolbox.rows]]
 label = "道具"
-items = ["Nix", "Storybook", "Playwright", "changesets", "Claude Code"]
+items = ["Nix", "Storybook", "Playwright", "changesets", "Claude Code", "Codex"]
 
 # ── すうじ ───────────────────────────────────────────────────────────────────
 [stats]
 window = "stats"
-alt = "公開リポジトリで使っている言語の割合と、この 1 年のコントリビューション"
+alt = "公開リポジトリで使っている言語の割合"
 heading = "公開リポジトリで使っている言語"
 as_of = "{date} 時点"                     # {date} は生成した日に置き換わる
 other = "その他"                          # 6 位より下をまとめた段の名前
