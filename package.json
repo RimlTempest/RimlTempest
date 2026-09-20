@@ -1,0 +1,9 @@
+{
+  "name": "rimltempest-profile",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "assets": "bun run scripts/build.ts",
+    "assets:offline": "bun run scripts/build.ts --offline"
+  }
+}

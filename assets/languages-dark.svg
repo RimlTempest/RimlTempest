@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 920 308" width="920" height="308" role="img" aria-label="言語の割合 — 公開リポジトリ 26 件">
+  <title>言語の割合 — 公開リポジトリ 26 件</title>
+  <style>
+    .bob { animation: rd-bob 3.6s ease-in-out infinite; }
+    .tw  { animation: rd-tw 2.8s ease-in-out infinite; transform-origin: center; }
+    .tw2 { animation: rd-tw 2.8s ease-in-out infinite 1.4s; transform-origin: center; }
+    @keyframes rd-bob { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-5px) } }
+    @keyframes rd-tw  { 0%,100% { opacity: 1 } 50% { opacity: .4 } }
+    @media (prefers-reduced-motion: reduce) { .bob,.tw,.tw2 { animation: none } }
+  </style>
+
+  <rect x="8" y="8" width="904" height="292" rx="16" fill="rgba(0,0,0,0.5)"/>
+  <rect x="0" y="0" width="904" height="292" rx="16" fill="#232839"/>
+  <path d="M0 56V16a16 16 0 0 1 16-16h872a16 16 0 0 1 16 16v40z" fill="#434756"/>
+  <g>
+      <circle cx="30" cy="28" r="11" fill="#fcf4e8"/>
+      <circle cx="62" cy="28" r="11" fill="#fcf4e8"/>
+      <circle cx="94" cy="28" r="11" fill="#fcf4e8"/>
+      <path d="M25.5 23.5l9 9M34.5 23.5l-9 9" stroke="#434756" stroke-width="2.4" stroke-linecap="round"/><rect x="57.5" y="23.5" width="9" height="9" rx="1.5" fill="none" stroke="#434756" stroke-width="2.4"/><path d="M89.5 28h9" stroke="#434756" stroke-width="2.4" stroke-linecap="round"/>
+    </g>
+  <text x="452" y="35" text-anchor="middle" font-family="'Zen Maru Gothic','M PLUS Rounded 1c','Hiragino Maru Gothic ProN','Kosugi Maru','Arial Rounded MT Bold','Nunito','Segoe UI',system-ui,sans-serif" font-size="19" font-weight="700" fill="#fcf4e8">languages</text>
+  <text x="40" y="92" font-family="'Zen Maru Gothic','M PLUS Rounded 1c','Hiragino Maru Gothic ProN','Kosugi Maru','Arial Rounded MT Bold','Nunito','Segoe UI',system-ui,sans-serif" font-size="16" font-weight="700" fill="#c3bdb3">公開リポジトリで使っている言語</text>
+  <rect x="40" y="106" width="363" height="26" rx="13" fill="#a0bff3"/><rect x="407" y="106" width="120" height="26" rx="13" fill="#5e7eb4"/><rect x="531" y="106" width="51" height="26" rx="13" fill="#ff6b63"/><rect x="586" y="106" width="44" height="26" rx="13" fill="#4eccd3"/><rect x="634" y="106" width="40" height="26" rx="13" fill="#c3bdb3"/><rect x="678" y="106" width="186" height="26" rx="13" fill="#7b8090"/>
+  <rect x="40" y="165" width="14" height="14" rx="4" fill="#a0bff3"/><text x="64" y="176" font-family="'Hiragino Sans','Noto Sans JP','Yu Gothic UI','Segoe UI',system-ui,sans-serif" font-size="15" fill="#fcf4e8">TypeScript</text><text x="287" y="176" text-anchor="end" font-family="'Hiragino Sans','Noto Sans JP','Yu Gothic UI','Segoe UI',system-ui,sans-serif" font-size="15" font-weight="700" fill="#c3bdb3">45.2%</text><rect x="315" y="165" width="14" height="14" rx="4" fill="#5e7eb4"/><text x="339" y="176" font-family="'Hiragino Sans','Noto Sans JP','Yu Gothic UI','Segoe UI',system-ui,sans-serif" font-size="15" fill="#fcf4e8">Python</text><text x="562" y="176" text-anchor="end" font-family="'Hiragino Sans','Noto Sans JP','Yu Gothic UI','Segoe UI',system-ui,sans-serif" font-size="15" font-weight="700" fill="#c3bdb3">14.9%</text><rect x="590" y="165" width="14" height="14" rx="4" fill="#ff6b63"/><text x="614" y="176" font-family="'Hiragino Sans','Noto Sans JP','Yu Gothic UI','Segoe UI',system-ui,sans-serif" font-size="15" fill="#fcf4e8">C#</text><text x="837" y="176" text-anchor="end" font-family="'Hiragino Sans','Noto Sans JP','Yu Gothic UI','Segoe UI',system-ui,sans-serif" font-size="15" font-weight="700" fill="#c3bdb3">6.4%</text><rect x="40" y="199" width="14" height="14" rx="4" fill="#4eccd3"/><text x="64" y="210" font-family="'Hiragino Sans','Noto Sans JP','Yu Gothic UI','Segoe UI',system-ui,sans-serif" font-size="15" fill="#fcf4e8">Vue</text><text x="287" y="210" text-anchor="end" font-family="'Hiragino Sans','Noto Sans JP','Yu Gothic UI','Segoe UI',system-ui,sans-serif" font-size="15" font-weight="700" fill="#c3bdb3">5.5%</text><rect x="315" y="199" width="14" height="14" rx="4" fill="#c3bdb3"/><text x="339" y="210" font-family="'Hiragino Sans','Noto Sans JP','Yu Gothic UI','Segoe UI',system-ui,sans-serif" font-size="15" fill="#fcf4e8">PHP</text><text x="562" y="210" text-anchor="end" font-family="'Hiragino Sans','Noto Sans JP','Yu Gothic UI','Segoe UI',system-ui,sans-serif" font-size="15" font-weight="700" fill="#c3bdb3">5.0%</text><rect x="590" y="199" width="14" height="14" rx="4" fill="#7b8090"/><text x="614" y="210" font-family="'Hiragino Sans','Noto Sans JP','Yu Gothic UI','Segoe UI',system-ui,sans-serif" font-size="15" fill="#fcf4e8">その他</text><text x="837" y="210" text-anchor="end" font-family="'Hiragino Sans','Noto Sans JP','Yu Gothic UI','Segoe UI',system-ui,sans-serif" font-size="15" font-weight="700" fill="#c3bdb3">23.1%</text>
+  <path d="M40 234h824" stroke="#7b8090" stroke-width="2" stroke-linecap="round" stroke-dasharray="2 7"/>
+  <text x="40" y="266" font-family="'Hiragino Sans','Noto Sans JP','Yu Gothic UI','Segoe UI',system-ui,sans-serif" font-size="14.5" fill="#c3bdb3">公開リポジトリ 26 件 ・ ★ 25 ・ 2026-09-20 更新</text>
+  <path d="M849 251l18 18M867 251l-18 18" stroke="#ff6b63" stroke-width="4.5" stroke-linecap="round" opacity="0.9"/>
+</svg>

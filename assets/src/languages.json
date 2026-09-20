@@ -1,0 +1,91 @@
+{
+  "langs": [
+    {
+      "name": "TypeScript",
+      "weight": 11.293365378195531
+    },
+    {
+      "name": "Python",
+      "weight": 3.718824709302951
+    },
+    {
+      "name": "C#",
+      "weight": 1.5936842105263158
+    },
+    {
+      "name": "Vue",
+      "weight": 1.370365952170033
+    },
+    {
+      "name": "PHP",
+      "weight": 1.250109317706146
+    },
+    {
+      "name": "Shell",
+      "weight": 1.0417197667507285
+    },
+    {
+      "name": "Rust",
+      "weight": 1
+    },
+    {
+      "name": "Visual Basic",
+      "weight": 1
+    },
+    {
+      "name": "CSS",
+      "weight": 0.975792483779341
+    },
+    {
+      "name": "JavaScript",
+      "weight": 0.7179428631535196
+    },
+    {
+      "name": "HTML",
+      "weight": 0.49777125725473637
+    },
+    {
+      "name": "Go",
+      "weight": 0.3517092847857695
+    },
+    {
+      "name": "Blade",
+      "weight": 0.14803423482902714
+    },
+    {
+      "name": "Mako",
+      "weight": 0.013162750645835896
+    },
+    {
+      "name": "Dockerfile",
+      "weight": 0.012301037986619036
+    },
+    {
+      "name": "Astro",
+      "weight": 0.004388263513393357
+    },
+    {
+      "name": "EJS",
+      "weight": 0.0031886891780100774
+    },
+    {
+      "name": "Svelte",
+      "weight": 0.0029901910019153543
+    },
+    {
+      "name": "SCSS",
+      "weight": 0.0020228944049120634
+    },
+    {
+      "name": "MDX",
+      "weight": 0.001488557563661203
+    },
+    {
+      "name": "C",
+      "weight": 0.001138157251555207
+    }
+  ],
+  "repos": 26,
+  "stars": 25,
+  "updated": "2026-09-20"
+}

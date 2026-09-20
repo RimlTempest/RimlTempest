@@ -1,0 +1,38 @@
+name: Assets
+
+on:
+  schedule:
+    - cron: "30 15 * * *" # 00:30 JST（Metrics と 30 分ずらす）
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/**"
+      - "assets/src/**"
+      - ".github/workflows/assets.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: profile-commit
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - name: Build
+        run: bun run scripts/build.ts
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets
+          git diff --staged --quiet || {
+            git commit -m "chore(assets): 言語の割合を描き直す"
+            git push
+          }

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 109 46" width="109" height="46" role="img" aria-label="LAPRAS">
+  <title>LAPRAS</title>
+  <style>
+    .bob { animation: rd-bob 3.6s ease-in-out infinite; }
+    .tw  { animation: rd-tw 2.8s ease-in-out infinite; transform-origin: center; }
+    .tw2 { animation: rd-tw 2.8s ease-in-out infinite 1.4s; transform-origin: center; }
+    @keyframes rd-bob { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-5px) } }
+    @keyframes rd-tw  { 0%,100% { opacity: 1 } 50% { opacity: .4 } }
+    @media (prefers-reduced-motion: reduce) { .bob,.tw,.tw2 { animation: none } }
+  </style>
+  <rect x="3" y="3" width="103" height="40" rx="20" fill="rgba(21,26,41,0.16)"/>
+  <rect x="0" y="0" width="103" height="40" rx="20" fill="#2f4c7e"/>
+  <text x="51.5" y="25.5" text-anchor="middle" font-family="'Zen Maru Gothic','M PLUS Rounded 1c','Hiragino Maru Gothic ProN','Kosugi Maru','Arial Rounded MT Bold','Nunito','Segoe UI',system-ui,sans-serif" font-size="15" font-weight="700" fill="#fcf4e8">LAPRAS</text>
+</svg>

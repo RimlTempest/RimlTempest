@@ -8,10 +8,15 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: profile-commit
+
 jobs:
   metrics:
     runs-on: ubuntu-latest
     steps:
+      # languages / habits プラグインは他リポジトリを読むので PAT が要る（github.token では空になる）。
+      # 言語の割合は scripts/build.ts が公開 API から自前で描いているので、ここでは概要だけ出す。
       - name: Overview
         uses: lowlighter/metrics@v3.34
         with:
@@ -24,35 +29,27 @@ jobs:
           config_timezone: Asia/Tokyo
           plugin_isocalendar: yes
           plugin_isocalendar_duration: full-year
-
-      - name: Languages
-        uses: lowlighter/metrics@v3.34
-        with:
-          token: ${{ secrets.METRICS_TOKEN || github.token }}
-          committer_token: ${{ secrets.GITHUB_TOKEN }}
-          filename: metrics.plugin.languages.svg
-          user: RimlTempest
-          template: classic
-          base: ""
-          config_timezone: Asia/Tokyo
-          plugin_languages: yes
-          plugin_languages_sections: most-used
-          plugin_languages_details: percentage
-          plugin_languages_limit: 8
-
-      - name: Habits
-        uses: lowlighter/metrics@v3.34
-        with:
-          token: ${{ secrets.METRICS_TOKEN || github.token }}
-          committer_token: ${{ secrets.GITHUB_TOKEN }}
-          filename: metrics.plugin.habits.svg
-          user: RimlTempest
-          template: classic
-          base: ""
-          config_timezone: Asia/Tokyo
-          plugin_habits: yes
-          plugin_habits_from: 200
-          plugin_habits_days: 14
-          plugin_habits_facts: yes
-          plugin_habits_charts: yes
-          plugin_habits_charts_type: graph
+          # riml-ds のブランド色に寄せる（riml-ds の docs/brand.md）
+          extras_css: |
+            svg { color: #434756; font-family: "Hiragino Sans", "Noto Sans JP", system-ui, sans-serif; }
+            h2, h3 { color: #2f4c7e; font-weight: 700; }
+            .field svg { fill: #5e7eb4; }
+            :root {
+              --color-calendar-graph-day-bg: #f9decb;
+              --color-calendar-graph-day-L1-bg: #c1d8ff;
+              --color-calendar-graph-day-L2-bg: #a0bff3;
+              --color-calendar-graph-day-L3-bg: #5e7eb4;
+              --color-calendar-graph-day-L4-bg: #2f4c7e;
+            }
+            @media (prefers-color-scheme: dark) {
+              svg { color: #c3bdb3; }
+              h2, h3 { color: #a0bff3; }
+              .field svg { fill: #a0bff3; }
+              :root {
+                --color-calendar-graph-day-bg: #232839;
+                --color-calendar-graph-day-L1-bg: #1f3c6c;
+                --color-calendar-graph-day-L2-bg: #2f4c7e;
+                --color-calendar-graph-day-L3-bg: #5e7eb4;
+                --color-calendar-graph-day-L4-bg: #a0bff3;
+              }
+            }
