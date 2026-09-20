@@ -97,7 +97,7 @@ type Stats = {
   activeDays: number;
 };
 
-async function fetchStats(): Promise<Stats> {
+async function fetchStats(prev?: Stats): Promise<Stats> {
   const token = process.env.GITHUB_TOKEN;
   const api = async (path: string) => {
     const res = await fetch(`https://api.github.com${path}`, {
@@ -128,8 +128,9 @@ async function fetchStats(): Promise<Stats> {
 
   const user = (await api(`/users/${USER}`)) as { followers: number };
 
-  const calendar = (
-    await graphql(`query($login:String!){
+  // コントリビューションは GraphQL でしか取れない。読めなければ前回の値を持ち越す
+  // （公開リポジトリ側は REST なので、ここで全部を捨てない）。
+  const calendar = await graphql(`query($login:String!){
       user(login:$login){
         contributionsCollection{
           contributionCalendar{
@@ -139,10 +140,17 @@ async function fetchStats(): Promise<Stats> {
         }
       }
     }`)
-  ).user.contributionsCollection.contributionCalendar as {
-    totalContributions: number;
-    weeks: { contributionDays: { date: string; contributionCount: number }[] }[];
-  };
+    .then(
+      (d) =>
+        d.user.contributionsCollection.contributionCalendar as {
+          totalContributions: number;
+          weeks: { contributionDays: { date: string; contributionCount: number }[] }[];
+        },
+    )
+    .catch((err) => {
+      console.warn(`コントリビューションを読めなかったので前回の値を使う: ${err}`);
+      return null;
+    });
 
   const repos = (await api(`/users/${USER}/repos?per_page=100&type=owner&sort=pushed`)) as {
     name: string; fork: boolean; archived: boolean; stargazers_count: number;
@@ -167,10 +175,10 @@ async function fetchStats(): Promise<Stats> {
     stars: mine.reduce((n, r) => n + r.stargazers_count, 0),
     followers: user.followers,
     updated: new Date().toISOString().slice(0, 10),
-    contributions: calendar.totalContributions,
-    activeDays: calendar.weeks
-      .flatMap((w) => w.contributionDays)
-      .filter((d) => d.contributionCount > 0).length,
+    contributions: calendar?.totalContributions ?? prev?.contributions ?? 0,
+    activeDays: calendar
+      ? calendar.weeks.flatMap((w) => w.contributionDays).filter((d) => d.contributionCount > 0).length
+      : (prev?.activeDays ?? 0),
   };
 }
 
@@ -287,11 +295,12 @@ const PALETTE = {
 // ── 出力 ────────────────────────────────────────────────────────────────────
 const cache = Bun.file(`${SRC}/stats.json`);
 let data: Stats;
+const previous: Stats | undefined = (await cache.exists()) ? await cache.json() : undefined;
 if (process.argv.includes("--offline")) {
   data = await cache.json();
 } else {
   try {
-    data = await fetchStats();
+    data = await fetchStats(previous);
     await Bun.write(cache, JSON.stringify(data, null, 2) + "\n");
   } catch (err) {
     console.warn(`GitHub API を読めなかったので前回の値を使う: ${err}`);
