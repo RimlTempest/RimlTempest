@@ -55,3 +55,27 @@ export function textWidth(s: string, size: number, bold = false): number {
 
 export const esc = (s: string) =>
   s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+/**
+ * 枠に入りきらない文字を少しだけ縮める。縮めても入らないときだけ警告する
+ * （content.toml を書き換えた人に、どれを短くすればいいか伝えるため）。
+ */
+export function fit(
+  text: string,
+  maxWidth: number,
+  size: number,
+  o: { bold?: boolean; min?: number; where?: string } = {},
+): number {
+  const min = o.min ?? size * 0.72;
+  const width = textWidth(text, size, o.bold);
+  if (width <= maxWidth) return size;
+  const scaled = (size * maxWidth) / width;
+  if (scaled < min) {
+    const over = Math.ceil((textWidth(text, min, o.bold) - maxWidth) / (min * 0.9));
+    console.warn(
+      `はみ出しそう: ${o.where ? `${o.where} の ` : ""}「${text}」— 全角 ${over} 文字ぶんくらい短くしてください`,
+    );
+    return Math.round(min * 10) / 10;
+  }
+  return Math.round(scaled * 10) / 10;
+}

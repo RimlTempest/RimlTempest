@@ -1,0 +1,80 @@
+# プロフィールの絵に入る文字は、ぜんぶここにあります。
+#
+#   1. この file を書き換える
+#   2. bun run scripts/build.ts --offline   （数字も取り直すなら --offline を外す）
+#   3. assets/*.svg が作り直される
+#
+# 長すぎる文字は自動で少し縮みます。縮めても入らないときはビルドが
+# 「はみ出しそう」と警告を出すので、そのときだけ短くしてください。
+
+# ── いちばん上の窓 ───────────────────────────────────────────────────────────
+[header]
+window = "riml.exe"                       # 帯（タイトルバー）の文字
+name = "Riml"                             # 大きい名前
+meta = "@RimlTempest ・ Tokyo, JP"        # 名前の下の小さい行
+tagline = "フロントエンドが好きなエンジニア"  # 太字の 1 行
+sub = "デザインシステム / Web / Cloudflare / 個人開発"
+alt = "Riml — フロントエンドが好きなエンジニア"  # 読み上げ用の説明
+face_light = "riml-smile.jpg"             # assets/src/ に置いた顔（ライト用）
+face_dark = "riml-eyes.jpg"               # 同上（ダーク用）
+
+# ── 道具箱 ───────────────────────────────────────────────────────────────────
+[toolbox]
+window = "toolbox"
+alt = "道具箱 — Riml がふだん使う技術"
+
+# 行は好きなだけ増やせます。items が多いときは自動で折り返します。
+[[toolbox.rows]]
+label = "言語"
+items = ["TypeScript", "Rust", "Python", "Swift", "C#"]
+
+[[toolbox.rows]]
+label = "Web"
+items = ["React", "TanStack Start", "Lit", "Astro", "Vue", "Hono"]
+
+[[toolbox.rows]]
+label = "基盤"
+items = ["Cloudflare Workers", "D1", "Bun", "GitHub Actions"]
+
+[[toolbox.rows]]
+label = "道具"
+items = ["Nix", "Storybook", "Playwright", "changesets", "Claude Code"]
+
+# ── すうじ ───────────────────────────────────────────────────────────────────
+[stats]
+window = "stats"
+alt = "公開リポジトリで使っている言語の割合と、この 1 年のコントリビューション"
+heading = "公開リポジトリで使っている言語"
+as_of = "{date} 時点"                     # {date} は生成した日に置き換わる
+other = "その他"                          # 6 位より下をまとめた段の名前
+tile_contributions = "この 1 年の contributions"
+tile_active_days = "うち さわった日数"
+tile_repos = "公開リポジトリ"
+tile_followers = "フォロワー"
+
+# ── いちばん下の窓 ───────────────────────────────────────────────────────────
+[footer]
+window = "thanks!"
+alt = "見てくれてありがとう！"
+line1 = "見てくれてありがとう！"
+line2 = "気になるものがあれば覗いていってね"
+face = "riml-smile-sm.jpg"
+
+# ── リンクのピル ─────────────────────────────────────────────────────────────
+# slug は file 名になります（assets/badge-<slug>-light.svg）。
+# 増やしたら README.md にも <a href="..."><picture>…</picture></a> を足してください。
+[[badges]]
+slug = "portfolio"
+label = "Portfolio"
+
+[[badges]]
+slug = "x"
+label = "X @fande4d"
+
+[[badges]]
+slug = "lapras"
+label = "LAPRAS"
+
+[[badges]]
+slug = "ds"
+label = "riml-ds"

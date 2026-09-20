@@ -40,9 +40,11 @@
   </picture>
 </div>
 
+絵の中の文字は [`content.toml`](content.toml) にあります。書き換えたら作り直してください。
+
 ```sh
-bun run scripts/build.ts            # 公開 API から数え直して assets/*.svg を生成
-bun run scripts/build.ts --offline  # 前回取った値のまま作り直す
+bun run scripts/build.ts --offline  # content.toml の文字だけ反映して assets/*.svg を生成
+bun run scripts/build.ts            # 数字も GitHub の公開 API から取り直す
 ```
 
 <div align="center">

@@ -1,13 +1,31 @@
 /**
  * プロフィールの画像をぜんぶ作る。
  *
- *   bun run scripts/build.ts          # 言語の割合は GitHub API から取り直す
- *   bun run scripts/build.ts --offline # assets/src/languages.json をそのまま使う
+ *   bun run scripts/build.ts           # 数字を GitHub から取り直して作る
+ *   bun run scripts/build.ts --offline # assets/src/stats.json の値のまま作る
  *
- * 見た目の決まりは riml-ds の docs/brand.md（視覚言語「まど」）に合わせている。
+ * 文字は content.toml にある。見た目の決まりは riml-ds の docs/brand.md
+ * （視覚言語「まど」）に合わせている。
  */
-import { t, type Theme, DISPLAY, SANS, textWidth, esc } from "./tokens";
+import { t, type Theme, DISPLAY, SANS, textWidth, fit, esc } from "./tokens";
 import { windowFrame, dotted, pill, cross, motion } from "./parts";
+import content from "../content.toml";
+
+type Content = {
+  header: {
+    window: string; name: string; meta: string; tagline: string; sub: string; alt: string;
+    face_light: string; face_dark: string;
+  };
+  toolbox: { window: string; alt: string; rows: { label: string; items: string[] }[] };
+  stats: {
+    window: string; alt: string; heading: string; as_of: string; other: string;
+    tile_contributions: string; tile_active_days: string; tile_repos: string; tile_followers: string;
+  };
+  footer: { window: string; alt: string; line1: string; line2: string; face: string };
+  badges: { slug: string; label: string }[];
+};
+
+const c = content as Content;
 
 const OUT = "assets";
 const SRC = "assets/src";
@@ -28,14 +46,16 @@ ${body}
 function header(th: Theme, face: string) {
   const W = 904, H = 304;
   const ax = 40, ay = 88, as = 176;
+  const TX = 252, TW = 856 - TX; // 文字が使える幅
+  const h = c.header;
   return svg(
     W + 16,
     H + 16,
-    "Riml — つくるのが好きなソフトウェアエンジニア",
+    h.alt,
     `  <defs>
     <clipPath id="av"><rect x="${ax}" y="${ay}" width="${as}" height="${as}" rx="18"/></clipPath>
   </defs>
-${windowFrame(th, { w: W, h: H, title: "riml.exe" })}
+${windowFrame(th, { w: W, h: H, title: h.window })}
   <g class="bob">
     <rect x="${ax + 7}" y="${ay + 7}" width="${as}" height="${as}" rx="18" fill="${th.shadow}"/>
     <rect x="${ax}" y="${ay}" width="${as}" height="${as}" rx="18" fill="${AVATAR_BG}"/>
@@ -45,27 +65,20 @@ ${windowFrame(th, { w: W, h: H, title: "riml.exe" })}
   <g class="tw">${cross(838, 108, 10, th.brand)}</g>
   <g class="tw2">${cross(868, 136, 6.5, th.brand, 0.7)}</g>
   ${cross(W - 46, H - 42, 11, th.signature)}
-  <text x="252" y="152" font-family="${DISPLAY}" font-size="54" font-weight="700" fill="${th.ink}">Riml</text>
-  <text x="252" y="182" font-family="${SANS}" font-size="17" fill="${th.muted}">@RimlTempest ・ Tokyo, JP</text>
-  ${dotted(th, 252, 856, 204)}
-  <text x="252" y="238" font-family="${DISPLAY}" font-size="21" font-weight="700" fill="${th.ink}">つくるのが好きなソフトウェアエンジニア</text>
-  <text x="252" y="268" font-family="${SANS}" font-size="16.5" fill="${th.muted}">デザインシステム / Web / Cloudflare / 個人開発</text>`,
+  <text x="${TX}" y="152" font-family="${DISPLAY}" font-size="${fit(h.name, TW, 54, { bold: true, where: "header.name" })}" font-weight="700" fill="${th.ink}">${esc(h.name)}</text>
+  <text x="${TX}" y="182" font-family="${SANS}" font-size="${fit(h.meta, TW, 17, { where: "header.meta" })}" fill="${th.muted}">${esc(h.meta)}</text>
+  ${dotted(th, TX, 856, 204)}
+  <text x="${TX}" y="238" font-family="${DISPLAY}" font-size="${fit(h.tagline, TW, 21, { bold: true, where: "header.tagline" })}" font-weight="700" fill="${th.ink}">${esc(h.tagline)}</text>
+  <text x="${TX}" y="268" font-family="${SANS}" font-size="${fit(h.sub, TW, 16.5, { where: "header.sub" })}" fill="${th.muted}">${esc(h.sub)}</text>`,
   );
 }
 
 // ── 道具箱 ──────────────────────────────────────────────────────────────────
-const TOOLS: [string, string[]][] = [
-  ["言語", ["TypeScript", "Rust", "Python", "Swift", "C#"]],
-  ["Web", ["React", "TanStack Start", "Lit", "Astro", "Vue", "Hono"]],
-  ["基盤", ["Cloudflare Workers", "D1", "Bun", "GitHub Actions"]],
-  ["道具", ["Nix", "Storybook", "Playwright", "changesets", "Claude Code"]],
-];
-
 function toolbox(th: Theme) {
   const W = 904, LX = 40, PX = 150, RIGHT = W - 40, GAP = 10, PH = 34, LINE = 46;
   let y = 88;
   let body = "";
-  for (const [i, [label, items]] of TOOLS.entries()) {
+  for (const [i, { label, items }] of c.toolbox.rows.entries()) {
     const rowTop = y;
     let x = PX;
     for (const item of items) {
@@ -74,15 +87,15 @@ function toolbox(th: Theme) {
       body += pill(th, { x, y, label: item, w, h: PH });
       x += w + GAP;
     }
-    body += `<text x="${LX}" y="${rowTop + 23}" font-family="${DISPLAY}" font-size="16" font-weight="700" fill="${th.muted}">${esc(label)}</text>`;
+    body += `<text x="${LX}" y="${rowTop + 23}" font-family="${DISPLAY}" font-size="${fit(label, PX - LX - 16, 16, { bold: true, where: "toolbox.rows.label" })}" font-weight="700" fill="${th.muted}">${esc(label)}</text>`;
     y += LINE;
-    if (i < TOOLS.length - 1) {
+    if (i < c.toolbox.rows.length - 1) {
       body += dotted(th, LX, RIGHT, y - 6);
       y += 10;
     }
   }
   const H = y + 18;
-  return svg(W + 16, H + 16, "道具箱 — Riml がふだん使う技術", `${windowFrame(th, { w: W, h: H, title: "toolbox" })}\n${body}`);
+  return svg(W + 16, H + 16, c.toolbox.alt, `${windowFrame(th, { w: W, h: H, title: c.toolbox.window })}\n${body}`);
 }
 
 // ── 言語の割合（GitHub の公開リポジトリから数える）──────────────────────────
@@ -187,7 +200,7 @@ function stats(th: Theme, s: Stats, palette: readonly string[]) {
   const W = 904, LX = 40, RIGHT = W - 40, BAR_Y = 106, BAR_H = 26, GAP = 4;
   const top = s.langs.slice(0, 5);
   const rest = s.langs.slice(5).reduce((n, l) => n + l.weight, 0);
-  const rows = rest > 0 ? [...top, { name: "その他", weight: rest }] : top;
+  const rows = rest > 0 ? [...top, { name: c.stats.other, weight: rest }] : top;
   const sum = rows.reduce((n, l) => n + l.weight, 0) || 1;
   const shares = rows.map((l) => l.weight / sum);
 
@@ -214,10 +227,10 @@ function stats(th: Theme, s: Stats, palette: readonly string[]) {
 
   const TW = 197, TH = 78, TY = legendBottom + 52;
   const tiles: [string, string][] = [
-    [`${s.contributions}`, "この 1 年の contributions"],
-    [`${s.activeDays}`, "うち さわった日数"],
-    [`${s.repos}`, "公開リポジトリ"],
-    [`${s.followers}`, "フォロワー"],
+    [`${s.contributions}`, c.stats.tile_contributions],
+    [`${s.activeDays}`, c.stats.tile_active_days],
+    [`${s.repos}`, c.stats.tile_repos],
+    [`${s.followers}`, c.stats.tile_followers],
   ];
   let tile = "";
   tiles.forEach(([n, label], i) => {
@@ -225,17 +238,17 @@ function stats(th: Theme, s: Stats, palette: readonly string[]) {
     tile +=
       `<rect x="${tx}" y="${TY}" width="${TW}" height="${TH}" rx="16" fill="${th.sunken}"/>` +
       `<text x="${tx + 18}" y="${TY + 40}" font-family="${DISPLAY}" font-size="30" font-weight="700" fill="${th.ink}">${esc(n)}</text>` +
-      `<text x="${tx + 18}" y="${TY + 62}" font-family="${SANS}" font-size="12" fill="${th.muted}">${esc(label)}</text>`;
+      `<text x="${tx + 18}" y="${TY + 62}" font-family="${SANS}" font-size="${fit(label, TW - 36, 12, { where: "stats の tile" })}" fill="${th.muted}">${esc(label)}</text>`;
   });
 
   const H = TY + TH + 38;
   return svg(
     W + 16,
     H + 16,
-    `言語の割合と、この 1 年で ${s.contributions} コントリビューション`,
-    `${windowFrame(th, { w: W, h: H, title: "stats" })}
-  <text x="${LX}" y="${BAR_Y - 14}" font-family="${DISPLAY}" font-size="16" font-weight="700" fill="${th.muted}">公開リポジトリで使っている言語</text>
-  <text x="${RIGHT}" y="${BAR_Y - 14}" text-anchor="end" font-family="${SANS}" font-size="13" fill="${th.muted}">${s.updated} 時点</text>
+    c.stats.alt,
+    `${windowFrame(th, { w: W, h: H, title: c.stats.window })}
+  <text x="${LX}" y="${BAR_Y - 14}" font-family="${DISPLAY}" font-size="${fit(c.stats.heading, 600, 16, { bold: true, where: "stats.heading" })}" font-weight="700" fill="${th.muted}">${esc(c.stats.heading)}</text>
+  <text x="${RIGHT}" y="${BAR_Y - 14}" text-anchor="end" font-family="${SANS}" font-size="13" fill="${th.muted}">${esc(c.stats.as_of.replace("{date}", s.updated))}</text>
   ${bar}
   ${legend}
   ${dotted(th, LX, RIGHT, TY - 26)}
@@ -247,31 +260,26 @@ function stats(th: Theme, s: Stats, palette: readonly string[]) {
 // ── フッター ────────────────────────────────────────────────────────────────
 function footer(th: Theme, face: string) {
   const W = 460, H = 132, bar = 44, ax = 28, ay = bar + 16, as = 56;
+  const TX = ax + as + 20, TW = W - 40 - TX;
+  const f = c.footer;
   return svg(
     W + 16,
     H + 16,
-    "見てくれてありがとう！",
+    f.alt,
     `  <defs><clipPath id="fa"><rect x="${ax}" y="${ay}" width="${as}" height="${as}" rx="14"/></clipPath></defs>
-${windowFrame(th, { w: W, h: H, title: "thanks!", bar })}
+${windowFrame(th, { w: W, h: H, title: f.window, bar })}
   <g class="bob">
     <rect x="${ax}" y="${ay}" width="${as}" height="${as}" rx="14" fill="${AVATAR_BG}"/>
     <image x="${ax}" y="${ay}" width="${as}" height="${as}" clip-path="url(#fa)" preserveAspectRatio="xMidYMid slice" xlink:href="data:image/jpeg;base64,${face}"/>
     <rect x="${ax}" y="${ay}" width="${as}" height="${as}" rx="14" fill="none" stroke="${th.brand}" stroke-width="2"/>
   </g>
-  <text x="${ax + as + 20}" y="${ay + 26}" font-family="${DISPLAY}" font-size="18" font-weight="700" fill="${th.ink}">見てくれてありがとう！</text>
-  <text x="${ax + as + 20}" y="${ay + 50}" font-family="${SANS}" font-size="14" fill="${th.muted}">気になるものがあれば覗いていってね</text>
+  <text x="${TX}" y="${ay + 26}" font-family="${DISPLAY}" font-size="${fit(f.line1, TW, 18, { bold: true, where: "footer.line1" })}" font-weight="700" fill="${th.ink}">${esc(f.line1)}</text>
+  <text x="${TX}" y="${ay + 50}" font-family="${SANS}" font-size="${fit(f.line2, TW, 14, { where: "footer.line2" })}" fill="${th.muted}">${esc(f.line2)}</text>
   <g class="tw">${cross(W - 34, bar + 26, 8, th.signature)}</g>`,
   );
 }
 
 // ── リンクのピル ────────────────────────────────────────────────────────────
-const BADGES: [string, string][] = [
-  ["portfolio", "Portfolio"],
-  ["x", "X @fande4d"],
-  ["lapras", "LAPRAS"],
-  ["ds", "riml-ds"],
-];
-
 function badge(th: Theme, label: string) {
   const H = 40;
   const W = Math.round(textWidth(label, 15, true) + 44);
@@ -308,22 +316,22 @@ if (process.argv.includes("--offline")) {
   }
 }
 
-const [smile, eyes, smileSm] = await Promise.all([
-  b64(`${SRC}/riml-smile.jpg`),
-  b64(`${SRC}/riml-eyes.jpg`),
-  b64(`${SRC}/riml-smile-sm.jpg`),
+const [faceLight, faceDark, faceFooter] = await Promise.all([
+  b64(`${SRC}/${c.header.face_light}`),
+  b64(`${SRC}/${c.header.face_dark}`),
+  b64(`${SRC}/${c.footer.face}`),
 ]);
 
 const files: [string, string][] = [
-  ["header-light.svg", header(t.light, smile)],
-  ["header-dark.svg", header(t.dark, eyes)],
+  ["header-light.svg", header(t.light, faceLight)],
+  ["header-dark.svg", header(t.dark, faceDark)],
   ["toolbox-light.svg", toolbox(t.light)],
   ["toolbox-dark.svg", toolbox(t.dark)],
   ["stats-light.svg", stats(t.light, data, PALETTE.light)],
   ["stats-dark.svg", stats(t.dark, data, PALETTE.dark)],
-  ["footer-light.svg", footer(t.light, smileSm)],
-  ["footer-dark.svg", footer(t.dark, smileSm)],
-  ...BADGES.flatMap(([slug, label]): [string, string][] => [
+  ["footer-light.svg", footer(t.light, faceFooter)],
+  ["footer-dark.svg", footer(t.dark, faceFooter)],
+  ...c.badges.flatMap(({ slug, label }): [string, string][] => [
     [`badge-${slug}-light.svg`, badge(t.light, label)],
     [`badge-${slug}-dark.svg`, badge(t.dark, label)],
   ]),

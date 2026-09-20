@@ -1,4 +1,4 @@
-import { type Theme, DISPLAY, esc } from "./tokens";
+import { type Theme, DISPLAY, fit, esc } from "./tokens";
 
 /** 影 → 窓 → 帯 → 丸 3 つ → タイトル。まど（Mado）の骨格。 */
 export function windowFrame(
@@ -31,7 +31,7 @@ export function windowFrame(
   <rect x="0" y="0" width="${o.w}" height="${o.h}" rx="${r}" fill="${th.surface}"/>
   <path d="M0 ${bar}V${r}a${r} ${r} 0 0 1 ${r}-${r}h${o.w - r * 2}a${r} ${r} 0 0 1 ${r} ${r}v${bar - r}z" fill="${th.chrome}"/>
   ${dots}
-  <text x="${o.w / 2}" y="${cr + 7}" text-anchor="middle" font-family="${DISPLAY}" font-size="19" font-weight="700" fill="${th.chromeText}">${esc(o.title)}</text>`;
+  <text x="${o.w / 2}" y="${cr + 7}" text-anchor="middle" font-family="${DISPLAY}" font-size="${fit(o.title, o.w - 260, 19, { bold: true, where: "窓のタイトル" })}" font-weight="700" fill="${th.chromeText}">${esc(o.title)}</text>`;
 }
 
 /** 点線の区切り（§7.6）。 */

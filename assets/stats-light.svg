@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 920 394" width="920" height="394" role="img" aria-label="言語の割合と、この 1 年で 1081 コントリビューション">
-  <title>言語の割合と、この 1 年で 1081 コントリビューション</title>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 920 394" width="920" height="394" role="img" aria-label="公開リポジトリで使っている言語の割合と、この 1 年のコントリビューション">
+  <title>公開リポジトリで使っている言語の割合と、この 1 年のコントリビューション</title>
   <style>
     .bob { animation: rd-bob 3.6s ease-in-out infinite; }
     .tw  { animation: rd-tw 2.8s ease-in-out infinite; transform-origin: center; }

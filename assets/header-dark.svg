@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 920 320" width="920" height="320" role="img" aria-label="Riml — つくるのが好きなソフトウェアエンジニア">
-  <title>Riml — つくるのが好きなソフトウェアエンジニア</title>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 920 320" width="920" height="320" role="img" aria-label="Riml — フロントエンドが好きなエンジニア">
+  <title>Riml — フロントエンドが好きなエンジニア</title>
   <style>
     .bob { animation: rd-bob 3.6s ease-in-out infinite; }
     .tw  { animation: rd-tw 2.8s ease-in-out infinite; transform-origin: center; }
@@ -34,6 +34,6 @@
   <text x="252" y="152" font-family="'Zen Maru Gothic','M PLUS Rounded 1c','Hiragino Maru Gothic ProN','Kosugi Maru','Arial Rounded MT Bold','Nunito','Segoe UI',system-ui,sans-serif" font-size="54" font-weight="700" fill="#fcf4e8">Riml</text>
   <text x="252" y="182" font-family="'Hiragino Sans','Noto Sans JP','Yu Gothic UI','Segoe UI',system-ui,sans-serif" font-size="17" fill="#c3bdb3">@RimlTempest ・ Tokyo, JP</text>
   <path d="M252 204h604" stroke="#7b8090" stroke-width="2" stroke-linecap="round" stroke-dasharray="2 7"/>
-  <text x="252" y="238" font-family="'Zen Maru Gothic','M PLUS Rounded 1c','Hiragino Maru Gothic ProN','Kosugi Maru','Arial Rounded MT Bold','Nunito','Segoe UI',system-ui,sans-serif" font-size="21" font-weight="700" fill="#fcf4e8">つくるのが好きなソフトウェアエンジニア</text>
+  <text x="252" y="238" font-family="'Zen Maru Gothic','M PLUS Rounded 1c','Hiragino Maru Gothic ProN','Kosugi Maru','Arial Rounded MT Bold','Nunito','Segoe UI',system-ui,sans-serif" font-size="21" font-weight="700" fill="#fcf4e8">フロントエンドが好きなエンジニア</text>
   <text x="252" y="268" font-family="'Hiragino Sans','Noto Sans JP','Yu Gothic UI','Segoe UI',system-ui,sans-serif" font-size="16.5" fill="#c3bdb3">デザインシステム / Web / Cloudflare / 個人開発</text>
 </svg>
