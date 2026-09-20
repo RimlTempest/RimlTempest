@@ -2,7 +2,7 @@
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="assets/header-dark.svg">
-  <img alt="Riml — つくるのが好きなソフトウェアエンジニア" src="assets/header-light.svg" width="880">
+  <img alt="Riml — つくるのが好きなフロントエンドエンジニア" src="assets/header-light.svg" width="880">
 </picture>
 
 <p>
@@ -14,11 +14,11 @@
 
 </div>
 
-## ✕ こんにちは <sub><sup>hello</sup></sub>
+## ✕ こんにちは
 
-Web のプロダクトを、設計から見た目、Cloudflare の上での運用までひとりでつくっています。
-
-いまは自分のプロダクト群が共有するデザインシステム [**riml-ds**](https://github.com/RimlTempest/riml-ds) を育てているところ。DTCG トークンと Lit の部品、各フレームワークのラッパー、AI エージェント向けの手引きまでを同じ 1 か所から出しています。このプロフィールの絵も、その視覚言語「まど」で描きました。
+フロントエンドが好きなエンジニアです！
+本業では組織改善をしたり、インフラからフロントまでフルスタックにコミットしたりしながらデザインシステム作ったりしてます！
+個人でも作ってみたり？ [**riml-ds**](https://github.com/RimlTempest/riml-ds) このプロフィールもデザインシステムを通してます。
 
 つくったものは [リポジトリ一覧](https://github.com/RimlTempest?tab=repositories) に置いてあります。
 
@@ -31,7 +31,7 @@ Web のプロダクトを、設計から見た目、Cloudflare の上での運�
   </picture>
 </div>
 
-## ✕ すうじ <sub><sup>stats</sup></sub>
+## ✕ すうじ
 
 <div align="center">
   <picture>
@@ -39,10 +39,6 @@ Web のプロダクトを、設計から見た目、Cloudflare の上での運�
     <img alt="公開リポジトリで使っている言語の割合と、この 1 年のコントリビューション" src="assets/stats-light.svg" width="880">
   </picture>
 </div>
-
-## ✕ この窓について <sub><sup>about this profile</sup></sub>
-
-絵はぜんぶ [riml-ds](https://github.com/RimlTempest/riml-ds) の視覚言語「まど」— 帯 + 丸 3 つ + ピル + 硬い影 + 点線、クリームの紙とインク、髪の青と目の赤 — で描いていて、`scripts/build.ts` が毎日つくり直しています。
 
 ```sh
 bun run scripts/build.ts            # 公開 API から数え直して assets/*.svg を生成
