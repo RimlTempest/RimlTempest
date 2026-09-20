@@ -7,6 +7,7 @@ on:
   push:
     branches: [main]
     paths:
+      - "content.toml"
       - "scripts/**"
       - "assets/src/**"
       - ".github/workflows/assets.yml"
