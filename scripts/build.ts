@@ -87,7 +87,15 @@ function toolbox(th: Theme) {
 
 // ── 言語の割合（GitHub の公開リポジトリから数える）──────────────────────────
 type Lang = { name: string; weight: number };
-type Stats = { langs: Lang[]; repos: number; stars: number; updated: string };
+type Stats = {
+  langs: Lang[];
+  repos: number;
+  stars: number;
+  followers: number;
+  updated: string;
+  contributions: number;
+  activeDays: number;
+};
 
 async function fetchStats(): Promise<Stats> {
   const token = process.env.GITHUB_TOKEN;
@@ -103,8 +111,41 @@ async function fetchStats(): Promise<Stats> {
     return res.json();
   };
 
+  const graphql = async (query: string) => {
+    const res = await fetch("https://api.github.com/graphql", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        "user-agent": `${USER}-profile`,
+        ...(token ? { authorization: `Bearer ${token}` } : {}),
+      },
+      body: JSON.stringify({ query, variables: { login: USER } }),
+    });
+    const body = (await res.json()) as { data?: any; errors?: { message: string }[] };
+    if (!res.ok || body.errors) throw new Error(`graphql: ${res.status} ${body.errors?.[0]?.message ?? ""}`);
+    return body.data;
+  };
+
+  const user = (await api(`/users/${USER}`)) as { followers: number };
+
+  const calendar = (
+    await graphql(`query($login:String!){
+      user(login:$login){
+        contributionsCollection{
+          contributionCalendar{
+            totalContributions
+            weeks{ contributionDays{ date contributionCount } }
+          }
+        }
+      }
+    }`)
+  ).user.contributionsCollection.contributionCalendar as {
+    totalContributions: number;
+    weeks: { contributionDays: { date: string; contributionCount: number }[] }[];
+  };
+
   const repos = (await api(`/users/${USER}/repos?per_page=100&type=owner&sort=pushed`)) as {
-    name: string; fork: boolean; archived: boolean; stargazers_count: number; languages_url: string;
+    name: string; fork: boolean; archived: boolean; stargazers_count: number;
   }[];
   const mine = repos.filter((r) => !r.fork && !r.archived);
 
@@ -124,22 +165,27 @@ async function fetchStats(): Promise<Stats> {
     langs: [...total].map(([name, weight]) => ({ name, weight })).sort((a, b) => b.weight - a.weight),
     repos: mine.length,
     stars: mine.reduce((n, r) => n + r.stargazers_count, 0),
+    followers: user.followers,
     updated: new Date().toISOString().slice(0, 10),
+    contributions: calendar.totalContributions,
+    activeDays: calendar.weeks
+      .flatMap((w) => w.contributionDays)
+      .filter((d) => d.contributionCount > 0).length,
   };
 }
 
-/** 段は 6 つまで。色だけに頼らないよう、凡例に必ず名前と % を出す（brand.md §7.5）。 */
-function languages(th: Theme, s: Stats, palette: readonly string[]) {
+/** 言語の割合と、いまの数字。色だけに頼らないよう凡例に名前と % を出す（brand.md §7.5）。 */
+function stats(th: Theme, s: Stats, palette: readonly string[]) {
   const W = 904, LX = 40, RIGHT = W - 40, BAR_Y = 106, BAR_H = 26, GAP = 4;
   const top = s.langs.slice(0, 5);
   const rest = s.langs.slice(5).reduce((n, l) => n + l.weight, 0);
   const rows = rest > 0 ? [...top, { name: "その他", weight: rest }] : top;
   const sum = rows.reduce((n, l) => n + l.weight, 0) || 1;
+  const shares = rows.map((l) => l.weight / sum);
 
   const track = RIGHT - LX - GAP * (rows.length - 1);
   let x = LX;
   let bar = "";
-  const shares = rows.map((l) => l.weight / sum);
   rows.forEach((_, i) => {
     const w = Math.max(14, Math.round(track * shares[i]!));
     bar += `<rect x="${x}" y="${BAR_Y}" width="${w}" height="${BAR_H}" rx="${BAR_H / 2}" fill="${palette[i % palette.length]}"/>`;
@@ -156,21 +202,37 @@ function languages(th: Theme, s: Stats, palette: readonly string[]) {
       `<text x="${cx + 24}" y="${cy}" font-family="${SANS}" font-size="15" fill="${th.ink}">${esc(l.name)}</text>` +
       `<text x="${cx + CW - 28}" y="${cy}" text-anchor="end" font-family="${SANS}" font-size="15" font-weight="700" fill="${th.muted}">${(shares[i]! * 100).toFixed(1)}%</text>`;
   });
-
   const legendBottom = BAR_Y + BAR_H + 44 + (Math.ceil(rows.length / COL) - 1) * 34;
-  const factY = legendBottom + 56;
-  const H = factY + 26;
+
+  const TW = 197, TH = 78, TY = legendBottom + 52;
+  const tiles: [string, string][] = [
+    [`${s.contributions}`, "この 1 年の contributions"],
+    [`${s.activeDays}`, "うち さわった日数"],
+    [`${s.repos}`, "公開リポジトリ"],
+    [`${s.followers}`, "フォロワー"],
+  ];
+  let tile = "";
+  tiles.forEach(([n, label], i) => {
+    const tx = LX + i * (TW + 9);
+    tile +=
+      `<rect x="${tx}" y="${TY}" width="${TW}" height="${TH}" rx="16" fill="${th.sunken}"/>` +
+      `<text x="${tx + 18}" y="${TY + 40}" font-family="${DISPLAY}" font-size="30" font-weight="700" fill="${th.ink}">${esc(n)}</text>` +
+      `<text x="${tx + 18}" y="${TY + 62}" font-family="${SANS}" font-size="12" fill="${th.muted}">${esc(label)}</text>`;
+  });
+
+  const H = TY + TH + 38;
   return svg(
     W + 16,
     H + 16,
-    `言語の割合 — 公開リポジトリ ${s.repos} 件`,
-    `${windowFrame(th, { w: W, h: H, title: "languages" })}
+    `言語の割合と、この 1 年で ${s.contributions} コントリビューション`,
+    `${windowFrame(th, { w: W, h: H, title: "stats" })}
   <text x="${LX}" y="${BAR_Y - 14}" font-family="${DISPLAY}" font-size="16" font-weight="700" fill="${th.muted}">公開リポジトリで使っている言語</text>
+  <text x="${RIGHT}" y="${BAR_Y - 14}" text-anchor="end" font-family="${SANS}" font-size="13" fill="${th.muted}">${s.updated} 時点</text>
   ${bar}
   ${legend}
-  ${dotted(th, LX, RIGHT, factY - 32)}
-  <text x="${LX}" y="${factY}" font-family="${SANS}" font-size="14.5" fill="${th.muted}">公開リポジトリ ${s.repos} 件 ・ ★ ${s.stars} ・ ${s.updated} 更新</text>
-  ${cross(RIGHT - 6, factY - 6, 9, th.signature, 0.9)}`,
+  ${dotted(th, LX, RIGHT, TY - 26)}
+  ${tile}
+  ${cross(RIGHT - 4, TY + TH + 18, 9, th.signature, 0.9)}`,
   );
 }
 
@@ -221,18 +283,19 @@ const PALETTE = {
   dark: ["#a0bff3", "#5e7eb4", "#ff6b63", "#4eccd3", "#c3bdb3", "#7b8090"],
 } as const;
 
+
 // ── 出力 ────────────────────────────────────────────────────────────────────
-const cache = Bun.file(`${SRC}/languages.json`);
-let stats: Stats;
+const cache = Bun.file(`${SRC}/stats.json`);
+let data: Stats;
 if (process.argv.includes("--offline")) {
-  stats = await cache.json();
+  data = await cache.json();
 } else {
   try {
-    stats = await fetchStats();
-    await Bun.write(cache, JSON.stringify(stats, null, 2) + "\n");
+    data = await fetchStats();
+    await Bun.write(cache, JSON.stringify(data, null, 2) + "\n");
   } catch (err) {
     console.warn(`GitHub API を読めなかったので前回の値を使う: ${err}`);
-    stats = await cache.json();
+    data = await cache.json();
   }
 }
 
@@ -247,8 +310,8 @@ const files: [string, string][] = [
   ["header-dark.svg", header(t.dark, eyes)],
   ["toolbox-light.svg", toolbox(t.light)],
   ["toolbox-dark.svg", toolbox(t.dark)],
-  ["languages-light.svg", languages(t.light, stats, PALETTE.light)],
-  ["languages-dark.svg", languages(t.dark, stats, PALETTE.dark)],
+  ["stats-light.svg", stats(t.light, data, PALETTE.light)],
+  ["stats-dark.svg", stats(t.dark, data, PALETTE.dark)],
   ["footer-light.svg", footer(t.light, smileSm)],
   ["footer-dark.svg", footer(t.dark, smileSm)],
   ...BADGES.flatMap(([slug, label]): [string, string][] => [
@@ -260,4 +323,4 @@ const files: [string, string][] = [
 for (const [name, content] of files) {
   await Bun.write(`${OUT}/${name}`, content);
 }
-console.log(`${files.length} files -> ${OUT}/ (languages: ${stats.langs.length}, repos: ${stats.repos})`);
+console.log(`${files.length} files -> ${OUT}/ (languages: ${data.langs.length}, repos: ${data.repos})`);
