@@ -2,7 +2,7 @@
   "langs": [
     {
       "name": "TypeScript",
-      "weight": 12.293365378195528
+      "weight": 12.719973428236212
     },
     {
       "name": "Python",
@@ -17,32 +17,32 @@
       "weight": 1.370365952170033
     },
     {
+      "name": "CSS",
+      "weight": 1.2718153896645883
+    },
+    {
       "name": "PHP",
       "weight": 1.250109317706146
     },
     {
-      "name": "Shell",
-      "weight": 1.0417197667507285
+      "name": "Rust",
+      "weight": 1.0817304840819886
     },
     {
-      "name": "Rust",
-      "weight": 1
+      "name": "Shell",
+      "weight": 1.0561468287923055
     },
     {
       "name": "Visual Basic",
       "weight": 1
     },
     {
-      "name": "CSS",
-      "weight": 0.975792483779341
-    },
-    {
       "name": "JavaScript",
-      "weight": 0.7179428631535196
+      "weight": 0.8033496737913266
     },
     {
       "name": "HTML",
-      "weight": 0.49777125725473637
+      "weight": 0.49876879436292676
     },
     {
       "name": "Go",
@@ -53,24 +53,24 @@
       "weight": 0.14803423482902714
     },
     {
+      "name": "Svelte",
+      "weight": 0.09783493357621398
+    },
+    {
       "name": "Mako",
       "weight": 0.013162750645835896
     },
     {
       "name": "Dockerfile",
-      "weight": 0.012301037986619036
+      "weight": 0.012298591886338
     },
     {
       "name": "Astro",
-      "weight": 0.004388263513393357
+      "weight": 0.004362019547462568
     },
     {
       "name": "EJS",
       "weight": 0.0031886891780100774
-    },
-    {
-      "name": "Svelte",
-      "weight": 0.0029901910019153543
     },
     {
       "name": "SCSS",
@@ -78,17 +78,17 @@
     },
     {
       "name": "MDX",
-      "weight": 0.001488557563661203
+      "weight": 0.0014796552600808664
     },
     {
       "name": "C",
       "weight": 0.001138157251555207
     }
   ],
-  "repos": 26,
+  "repos": 27,
   "stars": 25,
   "followers": 38,
-  "updated": "2026-09-20",
-  "contributions": 1086,
-  "activeDays": 16
+  "updated": "2026-09-21",
+  "contributions": 1146,
+  "activeDays": 17
 }
