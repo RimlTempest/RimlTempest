@@ -2,7 +2,7 @@
   "langs": [
     {
       "name": "TypeScript",
-      "weight": 12.719973428236212
+      "weight": 13.281288201513362
     },
     {
       "name": "Python",
@@ -17,32 +17,32 @@
       "weight": 1.370365952170033
     },
     {
-      "name": "CSS",
-      "weight": 1.2718153896645883
-    },
-    {
       "name": "PHP",
       "weight": 1.250109317706146
     },
     {
+      "name": "CSS",
+      "weight": 1.2362248325043907
+    },
+    {
       "name": "Rust",
-      "weight": 1.0817304840819886
+      "weight": 1.1241223827110391
     },
     {
       "name": "Shell",
-      "weight": 1.0561468287923055
+      "weight": 1.0573716784442877
     },
     {
       "name": "Visual Basic",
       "weight": 1
     },
     {
-      "name": "JavaScript",
-      "weight": 0.8033496737913266
+      "name": "HTML",
+      "weight": 0.930802621584428
     },
     {
-      "name": "HTML",
-      "weight": 0.49876879436292676
+      "name": "JavaScript",
+      "weight": 0.7844054212280057
     },
     {
       "name": "Go",
@@ -54,7 +54,11 @@
     },
     {
       "name": "Svelte",
-      "weight": 0.09783493357621398
+      "weight": 0.09602702467322298
+    },
+    {
+      "name": "HCL",
+      "weight": 0.01937736984682762
     },
     {
       "name": "Mako",
@@ -85,10 +89,10 @@
       "weight": 0.001138157251555207
     }
   ],
-  "repos": 27,
+  "repos": 28,
   "stars": 25,
   "followers": 38,
-  "updated": "2026-09-21",
-  "contributions": 1146,
-  "activeDays": 17
+  "updated": "2026-09-22",
+  "contributions": 1574,
+  "activeDays": 18
 }
