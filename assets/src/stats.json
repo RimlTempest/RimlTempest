@@ -2,7 +2,7 @@
   "langs": [
     {
       "name": "TypeScript",
-      "weight": 13.281288201513362
+      "weight": 13.282770332892976
     },
     {
       "name": "Python",
@@ -22,7 +22,7 @@
     },
     {
       "name": "CSS",
-      "weight": 1.2362248325043907
+      "weight": 1.2352350216258148
     },
     {
       "name": "Rust",
@@ -30,7 +30,7 @@
     },
     {
       "name": "Shell",
-      "weight": 1.0573716784442877
+      "weight": 1.0571428682737307
     },
     {
       "name": "Visual Basic",
@@ -38,11 +38,11 @@
     },
     {
       "name": "HTML",
-      "weight": 0.930802621584428
+      "weight": 0.9307877893429571
     },
     {
       "name": "JavaScript",
-      "weight": 0.7844054212280057
+      "weight": 0.7842700778233911
     },
     {
       "name": "Go",
@@ -54,7 +54,7 @@
     },
     {
       "name": "Svelte",
-      "weight": 0.09602702467322298
+      "weight": 0.09599049045327955
     },
     {
       "name": "HCL",
@@ -66,11 +66,11 @@
     },
     {
       "name": "Dockerfile",
-      "weight": 0.012298591886338
+      "weight": 0.01229359455207252
     },
     {
       "name": "Astro",
-      "weight": 0.004362019547462568
+      "weight": 0.004308403646583549
     },
     {
       "name": "EJS",
@@ -82,7 +82,7 @@
     },
     {
       "name": "MDX",
-      "weight": 0.0014796552600808664
+      "weight": 0.0014614680307719642
     },
     {
       "name": "C",
@@ -92,7 +92,7 @@
   "repos": 28,
   "stars": 25,
   "followers": 38,
-  "updated": "2026-09-22",
-  "contributions": 1574,
+  "updated": "2026-09-23",
+  "contributions": 1579,
   "activeDays": 18
 }
